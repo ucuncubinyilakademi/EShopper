@@ -32,7 +32,7 @@ namespace EShopper.DataAccess.Concrete.EfCore
             }           
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter=null)
+        public virtual IEnumerable<T> GetAll(Expression<Func<T, bool>> filter=null)
         {
             using (var db = new TContext())
             {

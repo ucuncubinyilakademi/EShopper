@@ -4,17 +4,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EShopper.WebApp.Controllers
 {
-    public class HomeController : Controller
+    public class ShopController : Controller
     {
         private IProductService _productService;
-        public HomeController(IProductService productService)
+        public ShopController(IProductService productService)
         {
             _productService = productService;
         }
-
-        public IActionResult Index()
-        {            
-            return View(new ProductListModel
+        public IActionResult List()
+        {           
+            return View(new ProductListModel()
             {
                 Products=_productService.GetAll().ToList()
             });

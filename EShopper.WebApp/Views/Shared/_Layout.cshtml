@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="/modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+</head>
+<body>
+    <div>
+        @*@Html.Partial("_navbar")*@
+        <partial name="_navbar" />
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">Telefon</li>
+                        <li class="list-group-item">Elektronik</li>
+                        <li class="list-group-item">Bilgisayar</li>
+                        <li class="list-group-item">A fourth item</li>
+                        <li class="list-group-item">And a fifth one</li>
+                    </ul>
+                </div>
+                <div class="col-9">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="/modules/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="/modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

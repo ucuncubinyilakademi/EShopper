@@ -3,6 +3,7 @@ using EShopper.Business.Concrete;
 using EShopper.DataAccess.Abstract;
 using EShopper.DataAccess.Concrete.EfCore;
 using EShopper.DataAccess.Concrete.Memory;
+using EShopper.WebApp.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +27,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.CustomStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();

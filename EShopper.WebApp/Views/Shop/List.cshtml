@@ -1,16 +1,12 @@
 ﻿@model ProductListModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "List";
 }
 
 
-
-<partial name="_slider" />
-<div class="row mt-3">
+<div class="row">
     @foreach (var item in Model.Products)
     {
         <partial name="_product" for="@item" />
     }
 </div>
-
-
