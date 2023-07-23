@@ -43,6 +43,11 @@ namespace EShopper.DataAccess.Concrete.Memory
             throw new NotImplementedException();
         }
 
+        public Product GetProductDetails(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Product entity)
         {
             throw new NotImplementedException();

@@ -23,6 +23,7 @@ namespace EShopper.DataAccess.Concrete.EfCore
                 if (context.Products.Count() == 0)
                 {
                     context.Products.AddRange(Products);
+                    context.AddRange(ProductCategories);
                 }
 
                 context.SaveChanges();
@@ -46,6 +47,21 @@ namespace EShopper.DataAccess.Concrete.EfCore
             new Product(){ Name="Samsung Note10", Price=19000, Images={new Image(){ImageUrl="2.jpg" },new Image(){ImageUrl="3.jpg" },new Image() { ImageUrl = "4.jpg" },new Image() { ImageUrl = "5.jpg" } },Description="<p>güzel telefon</p>"},
             new Product(){ Name="Samsung Note11", Price=20000, Images={new Image(){ImageUrl="2.jpg" },new Image(){ImageUrl="3.jpg" },new Image() { ImageUrl = "4.jpg" },new Image() { ImageUrl = "5.jpg" } },Description="<p>güzel telefon</p>"},
             new Product(){ Name="Samsung Note12", Price=28000, Images={new Image(){ImageUrl="2.jpg" },new Image(){ImageUrl="3.jpg" },new Image() { ImageUrl = "4.jpg" },new Image() { ImageUrl = "5.jpg" } },Description="<p>güzel telefon</p>"}
+        };
+
+        private static ProductCategory[] ProductCategories =
+        {
+            new ProductCategory(){Product=Products[0],Category=Categories[0]},
+            new ProductCategory(){Product=Products[0],Category=Categories[1]},
+            new ProductCategory(){Product=Products[0],Category=Categories[2]},
+            new ProductCategory(){Product=Products[1],Category=Categories[0]},
+            new ProductCategory(){Product=Products[1],Category=Categories[2]},
+            new ProductCategory(){Product=Products[2],Category=Categories[0]},
+            new ProductCategory(){Product=Products[3],Category=Categories[2]},
+            new ProductCategory(){Product=Products[4],Category=Categories[1]},
+            new ProductCategory(){Product=Products[5],Category=Categories[1]},
+            new ProductCategory(){Product=Products[6],Category=Categories[2]},
+            new ProductCategory(){Product=Products[6],Category=Categories[0]}
         };
     }
 }

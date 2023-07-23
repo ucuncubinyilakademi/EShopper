@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace EShopper.DataAccess.Abstract
 {
-    public interface IProductDal:IRepository<Product>
-    {      
+    public interface IProductDal : IRepository<Product>
+    {
+        Product GetProductDetails(int id);
     }
 }

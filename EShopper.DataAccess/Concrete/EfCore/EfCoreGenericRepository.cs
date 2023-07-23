@@ -44,7 +44,7 @@ namespace EShopper.DataAccess.Concrete.EfCore
             }           
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             using (var db = new TContext())
             {
