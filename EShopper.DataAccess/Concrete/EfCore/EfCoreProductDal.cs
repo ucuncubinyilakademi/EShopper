@@ -32,6 +32,22 @@ namespace EShopper.DataAccess.Concrete.EfCore
                             .FirstOrDefault();
             }
         }
+
+        public List<Product> GetProductsByCategory(string category,int page, int pageSize)
+        {
+            using(var context = new ProjectContext())
+            {
+                var products = context.Products.Include("Images").AsQueryable();
+
+                if (category != null)
+                {
+                    products = products.Include(i => i.ProductCategories).ThenInclude(i => i.Category)
+                        .Where(i => i.ProductCategories.Any(a => a.Category.Name.ToLower() == category.ToLower()));
+                }
+
+                return products.Skip((page-1)*pageSize).Take(pageSize).ToList();
+            }
+        }
     }
 }
 

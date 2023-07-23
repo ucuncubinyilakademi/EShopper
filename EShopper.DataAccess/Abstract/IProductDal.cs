@@ -10,6 +10,7 @@ namespace EShopper.DataAccess.Abstract
 {
     public interface IProductDal : IRepository<Product>
     {
+        List<Product> GetProductsByCategory(string category, int page, int pageSize);
         Product GetProductDetails(int id);
     }
 }

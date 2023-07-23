@@ -41,6 +41,16 @@ namespace EShopper.DataAccess.Concrete.MySQL
             throw new NotImplementedException();
         }
 
+        public List<Product> GetProductsByCategory(string category)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Product> GetProductsByCategory(string category, int page, int pageSize)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Product entity)
         {
             throw new NotImplementedException();

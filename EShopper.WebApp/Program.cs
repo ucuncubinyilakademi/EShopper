@@ -2,7 +2,6 @@ using EShopper.Business.Abstract;
 using EShopper.Business.Concrete;
 using EShopper.DataAccess.Abstract;
 using EShopper.DataAccess.Concrete.EfCore;
-using EShopper.DataAccess.Concrete.Memory;
 using EShopper.WebApp.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +13,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IProductService, ProductManager>();
 builder.Services.AddScoped<IProductDal, EfCoreProductDal>();
-
+builder.Services.AddScoped<ICategoryService, CategoryManager>();
+builder.Services.AddScoped<ICategoryDal, EfCoreCategoryDal>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,6 +37,10 @@ app.MapRazorPages();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+    endpoints.MapControllerRoute(
+        name: "products",
+        pattern: "products/{category?}",
+        defaults: new { controller = "Shop", action = "List" });
 });
 
 SeedDatabase.Seed();

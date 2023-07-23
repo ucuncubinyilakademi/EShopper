@@ -10,7 +10,7 @@ namespace EShopper.Business.Abstract
 {
     public interface ICategoryService
     {
-        IQueryable<Category> GetAll(Expression<Func<Category, bool>> filter);
+        IEnumerable<Category> GetAll();
 
         void Create(Category entity);
         void Update(Category entity);

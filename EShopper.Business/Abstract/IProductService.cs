@@ -12,6 +12,7 @@ namespace EShopper.Business.Abstract
     {
         Product GetById(int id);
         IEnumerable<Product> GetAll(Expression<Func<Product, bool>> filter=null);
+        List<Product> GetProductsByCategory(string category, int page, int pageSize);
         Product GetProductDetails(int id);
         void Create(Product entity);
         void Update(Product entity);

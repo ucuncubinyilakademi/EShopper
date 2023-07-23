@@ -12,11 +12,14 @@ namespace EShopper.WebApp.Controllers
         {
             _productService = productService;
         }
-        public IActionResult List()
-        {           
+
+        [Route("products/{category?}")] //products/telefon?page=2
+        public IActionResult List(string category, int page=1)
+        {
+            const int pageSize= 3;
             return View(new ProductListModel()
             {
-                Products=_productService.GetAll().ToList()
+                Products=_productService.GetProductsByCategory(category,page,pageSize)
             });
         }
         public IActionResult Details(int? id)
