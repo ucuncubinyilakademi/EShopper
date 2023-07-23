@@ -19,6 +19,13 @@ namespace EShopper.WebApp.Controllers
             const int pageSize= 3;
             return View(new ProductListModel()
             {
+                PageInfo = new PageInfo()
+                {
+                    TotalItems= _productService.GetCountbyCategory(category),
+                    CurrentCategory=category,
+                    CurrentPage=page,
+                    ItemsPerPage=pageSize
+                },
                 Products=_productService.GetProductsByCategory(category,page,pageSize)
             });
         }

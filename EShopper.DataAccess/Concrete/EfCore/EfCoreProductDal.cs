@@ -1,4 +1,5 @@
-﻿using EShopper.DataAccess.Abstract;
+﻿using Azure;
+using EShopper.DataAccess.Abstract;
 using EShopper.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,6 +22,23 @@ namespace EShopper.DataAccess.Concrete.EfCore
                 return filter == null ? products.ToList() : products.Where(filter).ToList();
             }
         }
+
+        public int GetCountByCategory(string category)
+        {
+            using (var context = new ProjectContext())
+            {
+                var products = context.Products.Include("Images").AsQueryable();
+
+                if (category != null)
+                {
+                    products = products.Include(i => i.ProductCategories).ThenInclude(i => i.Category)
+                        .Where(i => i.ProductCategories.Any(a => a.Category.Name.ToLower() == category.ToLower()));
+                }
+
+                return products.Count();
+            }
+        }
+
         public Product GetProductDetails(int id)
         {
             using (var db = new ProjectContext())

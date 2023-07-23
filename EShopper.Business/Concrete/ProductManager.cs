@@ -38,6 +38,11 @@ namespace EShopper.Business.Concrete
             return _productDal.GetById(id);
         }
 
+        public int GetCountbyCategory(string category)
+        {
+            return _productDal.GetCountByCategory(category);
+        }
+
         public Product GetProductDetails(int id)
         {
             return _productDal.GetProductDetails(id);

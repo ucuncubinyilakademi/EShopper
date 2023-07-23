@@ -17,5 +17,6 @@ namespace EShopper.Business.Abstract
         void Create(Product entity);
         void Update(Product entity);
         void Delete(Product entity);
+        int GetCountbyCategory(string category);
     }
 }
