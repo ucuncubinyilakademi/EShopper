@@ -168,7 +168,7 @@ namespace EShopper.WebApp.Controllers
                 return NotFound();
             }
 
-            Category cat = _categoryService.GetById((int)id);
+            Category cat = _categoryService.GetByIdWithProducts((int)id);
 
             if (cat == null)
             {
@@ -178,7 +178,8 @@ namespace EShopper.WebApp.Controllers
             return View(new CategoryModel()
             {
                 Id=cat.Id,
-                Name=cat.Name
+                Name=cat.Name,
+                Products=cat.ProductCategories.Select(i=> i.Product).ToList()
             });
         }
 

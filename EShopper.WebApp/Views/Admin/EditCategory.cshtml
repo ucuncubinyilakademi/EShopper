@@ -6,7 +6,7 @@
 <h1>Edit Category</h1>
 
 <div class="row">
-    <div class="col-md-8 offset-2">
+    <div class="col-md-4">
         <form asp-controller="Admin" asp-action="EditCategory" method="post">
             <input type="hidden" name="Id" value="@Model.Id" />
             <div class="mb-3 form-group-row">
@@ -22,5 +22,48 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="col-md-8">
+        @if (Model.Products.Count > 0)
+        {
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <td width="5%">Id</td>
+                        <td width="10%">Image</td>
+                        <td>Name</td>
+                        <td>Price</td>
+                        <td width="15%"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Products)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td><img src="~/img/@item.Images[0].ImageUrl" width=80 /></td>
+                            <td>@item.Name</td>
+                            <td>@item.Price</td>
+                            <td>
+                                <a class="btn btn-warning btn-sm" href="/admin/products/@item.Id">Edit</a>
+                                <form action="/admin/deleteproduct" method="post" style="display:inline">
+                                    <input type="hidden" name="productId" value="@item.Id" />
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
+
+        else
+        {
+            <div class="alert alert-warning">
+                <h4>No Products</h4>
+            </div>
+        }
     </div>
 </div>
