@@ -1,5 +1,6 @@
 ﻿using EShopper.Business.Abstract;
 using EShopper.DataAccess.Abstract;
+using EShopper.DataAccess.Concrete.EfCore;
 using EShopper.Entities;
 using System;
 using System.Collections.Generic;
@@ -55,7 +56,19 @@ namespace EShopper.Business.Concrete
 
         public void Update(Product entity)
         {
-            _productDal.Update(entity);
+            using(var db = new ProjectContext())
+            {
+                db.Images.RemoveRange(db.Images.Where(i => i.ProductId == entity.Id).ToList());
+
+                var product = db.Products.Where(i => i.Id == entity.Id).FirstOrDefault();
+
+                product.Description = entity.Description;
+                product.Name = entity.Name;
+                product.Price = entity.Price;
+                product.Images = entity.Images;
+
+                db.SaveChanges();
+            }
         }
     }
 }

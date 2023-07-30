@@ -19,12 +19,12 @@ namespace EShopper.Business.Concrete
         }
         public void Create(Category entity)
         {
-            throw new NotImplementedException();
+            _categoryDal.Create(entity);
         }
 
         public void Delete(Category entity)
         {
-            throw new NotImplementedException();
+            _categoryDal.Delete(entity);
         }
 
         public IEnumerable<Category> GetAll()
@@ -32,9 +32,14 @@ namespace EShopper.Business.Concrete
             return _categoryDal.GetAll();
         }
 
+        public Category GetById(int id)
+        {
+            return _categoryDal.GetById(id);
+        }
+
         public void Update(Category entity)
         {
-            throw new NotImplementedException();
+            _categoryDal.Update(entity);
         }
     }
 }

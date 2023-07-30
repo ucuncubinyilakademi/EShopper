@@ -66,6 +66,15 @@ namespace EShopper.DataAccess.Concrete.EfCore
                 return products.Skip((page-1)*pageSize).Take(pageSize).ToList();
             }
         }
+
+        public override Product GetById(int id)
+        {
+            using (var db = new ProjectContext())
+            {
+                return db.Products.Include("Images").FirstOrDefault(i => i.Id == id);
+               
+            }
+        }
     }
 }
 
