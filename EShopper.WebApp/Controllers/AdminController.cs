@@ -1,12 +1,14 @@
 ﻿using EShopper.Business.Abstract;
 using EShopper.Entities;
 using EShopper.WebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.DotNet.Scaffolding.Shared.Project;
 
 namespace EShopper.WebApp.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private IProductService _productService;
@@ -16,6 +18,7 @@ namespace EShopper.WebApp.Controllers
             _productService = productService;
             _categoryService = categoryService;
         }
+        
         [Route("admin/products")]
         public IActionResult ProductList()
         {
@@ -27,12 +30,15 @@ namespace EShopper.WebApp.Controllers
 
         public IActionResult CreateProduct()
         {
+            ViewBag.Categories = _categoryService.GetAll();
             return View(new ProductModel());
         }
         [HttpPost]
-        public IActionResult CreateProduct(ProductModel model, List<IFormFile> files)
+        public IActionResult CreateProduct(ProductModel model, List<IFormFile> files, int[] categoryIds)
         {
             ModelState.Remove("ProductCategories");
+            ModelState.Remove("SelectedCategories");
+            ModelState.Remove("Images");
             if (ModelState.IsValid)
             {
                 var entity = new Product()
@@ -59,10 +65,10 @@ namespace EShopper.WebApp.Controllers
                     }
                 }
 
-                _productService.Create(entity);
+                _productService.Create(entity,categoryIds);
                 return RedirectToAction("ProductList");
             }
-
+            ViewBag.Categories = _categoryService.GetAll();
             return View(model);
         }
 
@@ -73,7 +79,7 @@ namespace EShopper.WebApp.Controllers
             {
                 return NotFound();
             }
-            var entity = _productService.GetById(id.Value);
+            var entity = _productService.GetByIdWithCategories(id.Value);
 
             if (entity == null) return NotFound();
 
@@ -83,13 +89,16 @@ namespace EShopper.WebApp.Controllers
                 Name = entity.Name,
                 Description = entity.Description,
                 Images = entity.Images,
-                Price = entity.Price
+                Price = entity.Price,
+                SelectedCategories=entity.ProductCategories.Select(i=>i.Category).ToList()
             };
+
+            ViewBag.Categories = _categoryService.GetAll();
             return View(model);
         }
         [HttpPost]
         [Route("admin/products/{id?}")]
-        public IActionResult EditProduct(ProductModel model, List<IFormFile> files)
+        public IActionResult EditProduct(ProductModel model, List<IFormFile> files, int[] categoryIds)
         {
             var entity = _productService.GetById(model.Id);
 
@@ -99,7 +108,7 @@ namespace EShopper.WebApp.Controllers
             entity.Description = model.Description;
             entity.Price = model.Price;
 
-            if (files != null)
+            if (files.Count>0)
             {
                 entity.Images.Clear();
                 foreach (var file in files)
@@ -118,7 +127,7 @@ namespace EShopper.WebApp.Controllers
 
             }
 
-            _productService.Update(entity);
+            _productService.Update(entity,categoryIds);
 
             return RedirectToAction("ProductList");
         }
@@ -212,6 +221,14 @@ namespace EShopper.WebApp.Controllers
             Category cat = _categoryService.GetById((int)categoryId);
             _categoryService.Delete(cat);
             return RedirectToAction("CategoryList");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteFromCategory(int categoryId, int productId)
+        {
+            _categoryService.DeleteFromCategory(categoryId, productId);
+
+            return Redirect("/admin/categories/"+categoryId);
         }
     }
 }

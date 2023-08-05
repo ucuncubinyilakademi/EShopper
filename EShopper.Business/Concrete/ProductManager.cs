@@ -19,9 +19,9 @@ namespace EShopper.Business.Concrete
         {
             _productDal = productDal;
         }
-        public void Create(Product entity)
+        public void Create(Product entity, int[] categoryIds)
         {
-            _productDal.Create(entity);
+            _productDal.Create(entity,categoryIds);
         }
 
         public void Delete(Product entity)
@@ -37,6 +37,11 @@ namespace EShopper.Business.Concrete
         public Product GetById(int id)
         {
             return _productDal.GetById(id);
+        }
+
+        public Product GetByIdWithCategories(int id)
+        {
+            return _productDal.GetByIdWithCategories(id);
         }
 
         public int GetCountbyCategory(string category)
@@ -69,6 +74,11 @@ namespace EShopper.Business.Concrete
 
                 db.SaveChanges();
             }
+        }
+
+        public void Update(Product entity, int[] categoryIds)
+        {
+            _productDal.Update(entity, categoryIds);
         }
     }
 }

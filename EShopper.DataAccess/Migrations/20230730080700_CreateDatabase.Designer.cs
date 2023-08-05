@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EShopper.DataAccess.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20230729090826_AddingImages")]
-    partial class AddingImages
+    [Migration("20230730080700_CreateDatabase")]
+    partial class CreateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,7 +99,7 @@ namespace EShopper.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("ProductCategory");
+                    b.ToTable("ProductCategories");
                 });
 
             modelBuilder.Entity("EShopper.Entities.Image", b =>

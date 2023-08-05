@@ -11,6 +11,11 @@ namespace EShopper.DataAccess.Concrete.MySQL
 {
     public class MySQLProductDal : IProductDal
     {
+        public void Create(Product entity, int[] categoryIds)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Create(Product entity)
         {
             throw new NotImplementedException();
@@ -27,6 +32,11 @@ namespace EShopper.DataAccess.Concrete.MySQL
         }
 
         public Product GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Product GetByIdWithCategories(int id)
         {
             throw new NotImplementedException();
         }
@@ -57,6 +67,11 @@ namespace EShopper.DataAccess.Concrete.MySQL
         }
 
         public void Update(Product entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Product entity, int[] categoryIds)
         {
             throw new NotImplementedException();
         }

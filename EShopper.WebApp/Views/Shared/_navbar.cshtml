@@ -12,35 +12,51 @@
                 <li class="nav-item">
                     <a class="nav-link" asp-controller="Shop" asp-action="List">Products</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Cart</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Orders</a>
-                </li>
-                  <li class="nav-item">
-                    <a class="nav-link" asp-controller="Admin" asp-action="CreateProduct">Add Product</a>
-                </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/admin/products">Admin Products</a>
-                </li>
-                  <li class="nav-item">
-                    <a class="nav-link" asp-controller="Admin" asp-action="CreateCategory">Add Category</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Admin" asp-action="CategoryList">Admin Categories</a>
-                </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Admin" asp-action="CreateProduct">Add Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/products">Admin Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Admin" asp-action="CreateCategory">Add Category</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Admin" asp-action="CategoryList">Admin Categories</a>
+                    </li>
+                }
+              
                 </ul>
             <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
-                </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">@User.Identity.Name</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Account/Logout">Logout</a>
+                    </li>
+
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Account/Login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Account/Register">Register</a>
+                    </li>
+                }
+           
+              
             </ul>           
         </div>
     </div>

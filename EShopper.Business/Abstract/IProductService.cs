@@ -14,9 +14,11 @@ namespace EShopper.Business.Abstract
         IEnumerable<Product> GetAll(Expression<Func<Product, bool>> filter=null);
         List<Product> GetProductsByCategory(string category, int page, int pageSize);
         Product GetProductDetails(int id);
-        void Create(Product entity);
+        void Create(Product entity, int[] categoryIds);
         void Update(Product entity);
         void Delete(Product entity);
         int GetCountbyCategory(string category);
+        Product GetByIdWithCategories(int id);
+        void Update(Product entity, int[] categoryIds);
     }
 }

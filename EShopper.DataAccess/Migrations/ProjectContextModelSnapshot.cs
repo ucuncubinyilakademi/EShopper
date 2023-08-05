@@ -96,7 +96,7 @@ namespace EShopper.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("ProductCategory");
+                    b.ToTable("ProductCategories");
                 });
 
             modelBuilder.Entity("EShopper.Entities.Image", b =>
