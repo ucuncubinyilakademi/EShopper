@@ -1,4 +1,6 @@
-﻿using EShopper.WebApp.EmailServices;
+﻿using EShopper.Business.Abstract;
+using EShopper.Business.Concrete;
+using EShopper.WebApp.EmailServices;
 using EShopper.WebApp.Identity;
 using EShopper.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -13,11 +15,13 @@ namespace EShopper.WebApp.Controllers
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
+        private ICartService _cartService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,ICartService cartService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _cartService = cartService;
         }
         public IActionResult Register()
         {
@@ -135,6 +139,8 @@ namespace EShopper.WebApp.Controllers
                 var result = await _userManager.ConfirmEmailAsync(user, token);
                 if (result.Succeeded)
                 {
+                    _cartService.InitializeCart(user.Id);
+
                     TempData["message"] = "Hesabınız Onaylanmıştır";
                     return View();
                 }

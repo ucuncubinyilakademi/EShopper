@@ -25,5 +25,7 @@ namespace EShopper.DataAccess.Concrete.EfCore
         public DbSet<Category> Categories { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

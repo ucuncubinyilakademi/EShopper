@@ -59,9 +59,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
 });
 
-
-
-
 // Add services to the container.
 builder.Services.AddRazorPages();
 
@@ -71,6 +68,11 @@ builder.Services.AddScoped<IProductService, ProductManager>();
 builder.Services.AddScoped<IProductDal, EfCoreProductDal>();
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
 builder.Services.AddScoped<ICategoryDal, EfCoreCategoryDal>();
+builder.Services.AddScoped<ICartService, CartManager>();
+builder.Services.AddScoped<ICartDal, EfCoreCartDal>();
+builder.Services.AddScoped<IOrderService, OrderManager>();
+builder.Services.AddScoped<IOrderDal, EfCoreOrderDal>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -118,6 +120,16 @@ app.UseEndpoints(endpoints =>
       name: "adminCategories",
       pattern: "admin/categories/{id?}",
       defaults: new { controller = "Admin", action = "EditCategory" });
+
+    endpoints.MapControllerRoute(
+     name: "cart",
+     pattern: "cart",
+     defaults: new { controller = "Cart", action = "Index" });
+
+    endpoints.MapControllerRoute(
+   name: "checkout",
+   pattern: "checkout",
+   defaults: new { controller = "Cart", action = "Checkout" });
 });
 
 SeedDatabase.Seed();
