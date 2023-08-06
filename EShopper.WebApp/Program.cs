@@ -17,6 +17,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
     .AddDefaultTokenProviders();
 
+var usermanager = builder.Services.BuildServiceProvider().GetService<UserManager<ApplicationUser>>();
+var rolemanager = builder.Services.BuildServiceProvider().GetService<RoleManager<IdentityRole>>();
+
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     //password
@@ -117,4 +121,6 @@ app.UseEndpoints(endpoints =>
 });
 
 SeedDatabase.Seed();
+
+SeedIdentity.Seed(usermanager,rolemanager,app.Configuration).Wait();
 app.Run();

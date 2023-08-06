@@ -8,7 +8,7 @@ using Microsoft.DotNet.Scaffolding.Shared.Project;
 
 namespace EShopper.WebApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
         private IProductService _productService;
